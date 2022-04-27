@@ -12,9 +12,9 @@
     <header>
         <div class="container-fluid p-0">
             <!--Navbar-->
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <nav class="navbar navbar-expand-sm">
                 <div class="container">
-                    <a href="#" class="navbar-brand"> Green Computing</a>
+                    <a href="#" class="navbar-brand" style="color: white"> Cost Comparison of Traditional and Renewable Energy of Data Centers</a>
                     <button 
                         class="navbar-toggler" 
                         type="button" 
@@ -22,177 +22,127 @@
                         data-bs-target="#navmenu">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-<!--
-                    <div class="collapse navbar-collapse" id="navmenu">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a href="#Data" class="nav-link">Data</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#Calculate" class="nav-link">Calculation</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#Result" class="nav-link">Result</a>
-                            </li>
-                        </ul>
-                    </div>
- -->                
                 </div>
             </nav>
         </div>
-
     </header>
     <main>
-        <div class="container">
-            <br/>
+        <div class="container homepage-tier">
 <!--
-            
--->         
-<div class="input-group mb-3">
+            <div class="input-group mb-3">
                 <input type="file" class="form-control" id="csvFileInput">
             </div>
-            <table class="table table-striped" id="csvRoot"></table>
-            <!--State Block-->
-            <div class="mb-3">
-                <label for="state" class="form-label"><h5>Step 1.</h5></label>
+            
+-->         <table class="table table-striped d-none" id="csvRoot"></table>
+            <div style="margin-top: 2rem;">
+                <!--State Block-->
                 <div class="row g-2">
-                    <div class="col-md-5 col-sm-12">
+                    <label for="state" class="form-label"><h5>Step 1.</h5></label>
+                    <div class="col-md-3 col-sm-12">
                             <select id="state" class="form-select" aria-label="Default select example">
                                 <option selected>Choose a state</option>
                                 <option value="04">AZ</option>
                                 <option value="06">CA</option>
-                                <option value="3">OH</option>
+                                <option value="32">NV</option>
                             </select>
                         </form>
                     </div>
                     <div class="col-md-7 col-sm-12"></div>
                 </div>
+                <!--range block-->
+                <div class="row" id="range"  style="margin-top: 1rem;">
+                    <label for="range" class="form-label"><h5>Step 2.</h5></label>
+                    <!--<div class="col-md-3 col-sm-12">
+                        <label for="tradRange" class="form-label">Percentage</label>
+                    </div>-->
+                    <div class="col-md-3 col-sm-12">
+                        <label for="tradRangeV" class="form-label">Traditional Energy Percentage: </label>
+                        <span id="tradRangeV">50</span> 
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <input oninput="updateChart(this)" type="range" class="form-range" id="tradRange">
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <label for="reRangeV" class="form-label">Renewable Energy Percentage: </label>
+                        <span id="reRangeV">50</span>
+                    </div>
+                </div>
+                <button onclick="calculateReuslt()" class="btn" style="margin-top: 1rem;">Calculate</button>
             </div>
             <hr/>
-
-            <!--range block-->
-            <div class="mb-3">
-                    <label for="customRange1" class="form-label">Percentage</label>
-                    <input type="range" class="form-range" id="customRange1">
-                </div>
-                <button onclick="calculateReuslt()" class="btn btn-primary" >Calculate</button>
-            <div class="row d-none" id="result">
-                <div class="col-md-6 col-sm-12" id="resultCost" >
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Total Cost</div>
-                                <p id="totalCost">10%</p>
+            <!--result block-->
+            <div id="result" class="container d-none">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-6 col-sm-12" id="result-container">
+                        <div class="row">
+                            <div class="row result-totalCost">
+                                <h3 id="totalCost"></h3>
+                                <h4>Total Cost($)</h4>
                             </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Traditional Energy Percentage</div>
-                                <p id="TEP">10%</p>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12">
+                                    <div class="result-traditional">
+                                        <h3 id="TEP"></h3>
+                                        <h4>Traditional Energy Percentage(%)</h4>
+                                    </div>
+                                    <div class="result-renewable">
+                                        <h3 id="GEP"></h3>
+                                        <h4>Renewable Energy Percentage(%)</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-sm-12">
+                                    <div class="result-traditional">
+                                        <h3 id="TEC"></h3>
+                                        <h4>Traditional Energy Cost($)</h4>
+                                    </div>
+                                    <div class="result-renewable">
+                                        <h3 id="GEC"></h3>
+                                        <h4>Renewable Energy Cost($)</h4>
+                                    </div>
+                                </div>
                             </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Traditional Energy Cost</div>
-                                <p id="TEC">100000</p> 
+                            <div id="subsidies" class="row result-subsidies d-none">
+                                <p>
+                                    1. Arizona Residential Solar Energy Tax Credit: The 25% state solar tax credit, Max. $1,000</br>
+                                    2. Energy Equipment Property Tax Exemption</br>
+                                    3. Solar Equipment Sales Tax Exemption (save 5.6%)
+                                </p>
+                                <h4>Subsidies</h4>
                             </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Green Energy Percentage</div>
-                                <p id="GEP">100000</p> 
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Green Energy Cost</div>
-                                <p id="GEC">100000</p> 
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Fine</div>
-                                <p id="fineNum">100000</p> 
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Subsidies</div>
-                                <p id="subsidiesNum">100000</p> 
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div class="container">
-                        <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <h6>Result Pie</h6>
+                        <canvas id="resultChart"></canvas>
+                    </div> 
+                    <div class="col-md-3 col-sm-12">
+                        <h6>Fuel Mix</h6>
+                        <canvas id="stateChart"></canvas>
+                    </div>
+                </div>    
+                <div class="row" id="lineChart" style="margin-top: 1rem; padding: 1.2rem; border-top: 1px solid #3e515a;" >
+                    <div class="col-md-6 col-sm-12">
+                        <h6>Supply Energy</h6>
+                        <canvas id="everyDayChart"></canvas>
+                    </div>
+                    <div class="col-md-6 col-sm-12" style="border-left: 1px solid #3e515a;">
+                        <h6>Avoided Emissions</h6>
+                        <canvas id="emissionsChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-        
     </main>
     <footer>
 
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../lib/papaparse.min.js"></script>
-    <script type="text/javascript" src="../js/chart.js"></script>
-    <script type="text/javascript" src="../js/state.js"></script>
+    <script type="text/javascript" src="../js/pieChart.js"></script>
+    <script type="text/javascript" src="../js/lineChart.js"></script>
+    <script type="text/javascript" src="../js/cal.js"></script>
     <script type="module" src="../js/main.js"></script>
-    <script>
-        
-
-        let totalCost = document.querySelector("#totalCost");
-        let tep = document.querySelector("#TEP");
-        let tec = document.querySelector("#TEC");
-        let gep = document.querySelector("#GEP");
-        let gec = document.querySelector("#GEC");
-        let fineN = document.querySelector("#fineNum");
-        let subsidiesN = document.querySelector("#subsidiesNum");
-        let result = document.querySelector("#result");
-
-        function calculateReuslt() {
-            const state = document.querySelector('#state');
-
-            console.log("start to calculate result!");
-
-            //from page
-            let choosenState = state.value;
-            let percentageTE = Number(document.querySelector("input[type='range']").value);
-            let percentageGE = 100-percentageTE;
-            console.log("state:" + state.value+", percentageTE:"+percentageTE+", percentageGE:"+percentageGE);
-
-            //from table
-            let rowState = document.querySelector("#state-"+choosenState);
-            let stateName = rowState.children[1].textContent;
-            let teNum = Number(rowState.children[2].textContent);
-            let geNum = Number(rowState.children[3].textContent);
-            let fine = Number(rowState.children[4].textContent);
-            let	subsidies = Number(rowState.children[5].textContent);
-            console.log("stateName:" + stateName+", teNum:"+teNum+", geNum:"+geNum+", fine:"+fine+", subsidies:"+subsidies);
-
-            //result
-            let cost = teNum*percentageTE/100+geNum*percentageGE/100+fine*teNum-subsidies*geNum;
-            console.log(cost);
-
-
-            //show
-            tep.textContent = percentageTE+"%";
-            tec.textContent = teNum*percentageTE;
-            gep.textContent = percentageGE+"%";
-            gec.textContent = geNum*percentageGE;
-            fineN.textContent = fine*teNum;
-            subsidiesN.textContent = subsidies*geNum;
-            totalCost.textContent = cost;
-
-            //show in pie
-            myChart.data.datasets[0].data = [percentageTE,percentageGE];
-            myChart.update();
-            
-            result.classList.remove("d-none");
-        }
-    </script>
 </body>
 </html>

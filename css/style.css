@@ -11,8 +11,8 @@
 }
 
 :root{
-    --color-bg: #3e515a;
-    --color-bg-variant: #2c2c6c;
+    --color-bg: #20303b;
+    --color-bg-variant: #4a5e67;
     --color-primary: #4db5ff;
     --color-primary-variant:rgba(77,181,255,0.4);
     --color-white:#fff;
@@ -25,10 +25,11 @@
     --contaoner-width-ms: 90%;
 }
 
-/* body{
-    color: $yellow-300;
-    background-color: #3e515a;
-} */
+.homepage-tier{
+    /*max-width: 1186px;*/
+    padding: 1.2rem;
+    margin: 0 auto;
+}
 
 body{
     font-family: 'Poppins', sans-serif;
@@ -43,5 +44,52 @@ h1, h2, h3, h4, h5{
 
 h1{
     font-size: 2.5rem;
+}
+
+nav{
+    background: var(--color-bg-variant);
+}
+
+.btn{
+    width: max-content;
+    display: inline-block;
+    color: var(--color-primary);
+    padding: 0.75rem 1.2rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    border: 1px solid var(--color-primary);
+    transition: var(--transition);
+}
+
+.btn:hover{
+    background: var(--color-white);
+    color: var(--color-bg);
+    border-color: transparent;
+}
+
+/** ===== RESULT BLOCK ===== */
+#result{
+    margin-top: 2rem;
+}
+#result-container .result-totalCost h3 {
+    color: #4ba5c7;
+}
+#result-container .result-traditional h3 {
+    color: #5baeb8;
+}
+#result-container .result-renewable h3 {
+    color: #6ebbad;
+}
+#result-container .result-subsidies p {
+    font-size: 12px;
+    color: #85cca5;
+    margin-bottom: 0.5rem;
+}
+#result-container h4 {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 12px;
+    text-transform: uppercase;
+    margin-top: 5px;
 }
 
