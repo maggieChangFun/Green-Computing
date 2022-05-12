@@ -19,7 +19,7 @@
         {
           "name": "California",
           "code": "06",
-          "totalEnergy":0.099,
+          "totalEnergy":0.99,
           "energy": [
             "Coal",
             "Natural Gas",
